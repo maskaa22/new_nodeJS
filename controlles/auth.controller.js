@@ -34,9 +34,15 @@ module.exports = {
             next(e);
         }
     },
-    deleteAcount: (req, res, next) => {
+    refresh: async (req, res, next) => {
         try {
-            res.json('ok');
+            const token = req.get(AUTHORIZATION);
+
+            const tokenPair = jwtServise.generateTokenPair();
+
+            await OAuth.updateOne({ refresh_token: token }, { ...tokenPair });
+
+            res.json(tokenPair);
         } catch (e) {
             next(e);
         }

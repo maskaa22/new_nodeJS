@@ -49,6 +49,19 @@ module.exports = {
             next(e);
         }
     },
+    validateUserBodyName: (req, res, next) => {
+        try {
+            const { error } = userValidator.updateUserValidator.validate(req.body);
+
+            if (error) {
+                throw new ErrorHandler(statusCode.BAD_REQUEST, error.details[0].message);
+            }
+
+            next();
+        } catch (e) {
+            next(e);
+        }
+    },
     checkUserRole: (roleArr = []) => (req, res, next) => {
         try {
             const { role } = req.user;

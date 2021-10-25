@@ -13,7 +13,7 @@ module.exports = {
             const userByEmail = await UserDB.findOne({ email }).select('+password').lean();
 
             if (!userByEmail) {
-                throw new ErrorHandler(statusCode.CONFLICT, messageCode.WRONG_LOGINING);
+                throw new ErrorHandler(statusCode.BAD_REQUEST, messageCode.WRONG_LOGINING);
             }
 
             req.user = userByEmail;
@@ -40,7 +40,7 @@ module.exports = {
             const { error } = loginValidator.loginUser.validate(req.body);
 
             if (error) {
-                throw new ErrorHandler(400, error.details[0].message);
+                throw new ErrorHandler(statusCode.BAD_REQUEST, messageCode.WRONG_LOGINING);
             }
 
             next();
@@ -84,8 +84,6 @@ module.exports = {
             if (!tokenRespons) {
                 throw new ErrorHandler(statusCode.UNAUTHORIZED, messageCode.NOT_TOKEN);
             }
-
-            await OAuth.remove({ refresh_token: token });
 
             req.user = tokenRespons.user_id;
 

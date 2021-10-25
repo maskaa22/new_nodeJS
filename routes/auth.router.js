@@ -19,8 +19,6 @@ router.post('/',
 
 router.post('/logout', checkAccessToken, authController.logout);
 
-router.post('/refresh', checkRefreshToken, authController.login);
-
-router.delete('/', checkAccessToken, authController.deleteAcount);
+router.post('/refresh', checkRefreshToken, authController.refresh);
 
 module.exports = router;
