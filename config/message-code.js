@@ -5,5 +5,6 @@ module.exports = {
     NOT_ACCESS: 'Access denied',
     RUNNING: 'App listen',
     NOT_TOKEN: 'Invalid token',
-    DELETED: 'Is deleted'
+    DELETED: 'Is deleted',
+    WRONG_TEMPLATE: 'Wrong template name'
 };

@@ -13,13 +13,17 @@
     "bcrypt": "^5.0.1",
     "dotenv": "^10.0.0",
     "dotmailer": "^3.0.1",
+    "email-templates": "^8.0.8",
     "express": "^4.17.1",
     "express-handlebars": "^5.3.3",
     "joi": "^17.4.2",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.4",
     "nodemailer": "^6.7.0",
-    "pm2": "^5.1.2"
+    "nodemailer-smtp-transport": "^2.7.4",
+    "pm2": "^5.1.2",
+    "smtp-client": "^0.4.0",
+    "pug": "^3.0.2"
   },
   "devDependencies": {
     "eslint": "^7.32.0",
@@ -30,6 +34,7 @@
     "husky": "4.3.0",
     "lint-staged": "^11.1.2",
     "@types/jsonwebtoken": "^8.5.5",
+    "@types/email-templates": "^8.0.4",
     "@types/nodemailer": "^6.4.4"
   },
   "husky": {
