@@ -1,28 +1,33 @@
-const { UserDB } = require('../dataBase');
-const { userServise, passwordServise, emailServise } = require('../servises');
+const { UserDB, Action } = require('../dataBase');
+const {
+    userServise, emailServise, jwtServise
+} = require('../servises');
 const { userUtil: { userNormalizator } } = require('../utils');
-const { emailActionEnum: { WELCOME, UPDATE, DELETE } } = require('../config');
+const { emailActionEnum: { WELCOME, UPDATE, DELETE }, tokenTypeEnum: { ACTION } } = require('../config');
 
 module.exports = {
     getSingleUsers: (req, res, next) => {
         try {
             const { user } = req;
 
-            res.json(user);
+            const userToReturn = userNormalizator(user);
+
+            res.json(userToReturn);
         } catch (e) {
             next(e);
         }
     },
     createUser: async (req, res, next) => {
         try {
-            const { password } = req.body;
             const userName = req.body.name;
 
-            const hashedPassword = await passwordServise.hash(password);
+            const createdUser = await UserDB.createUserWithHashPassword(req.body);
 
-            await emailServise.sendMail(req.body.email, WELCOME, { userName });
+            const token = jwtServise.createActionToken();
 
-            const createdUser = await userServise.createdUser(UserDB, { ...req.body, password: hashedPassword });
+            await Action.create({ token, type: ACTION, user_id: createdUser._id });
+
+            await emailServise.sendMail(req.body.email, WELCOME, { userName, token });
 
             const userToReturn = userNormalizator(createdUser);
 

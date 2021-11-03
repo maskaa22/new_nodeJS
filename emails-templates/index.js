@@ -1,6 +1,6 @@
 const {
     emailActionEnum: {
-        WELCOME, ORDER_CONFIRMED, USER_BLOCKED, DELETE, UPDATE
+        WELCOME, ORDER_CONFIRMED, USER_BLOCKED, DELETE, UPDATE, FORGOT_PASSWORD
     }
 } = require('../config');
 
@@ -24,5 +24,9 @@ module.exports = {
     [UPDATE]: {
         templateName: 'update',
         subject: 'Update is OK'
+    },
+    [FORGOT_PASSWORD]: {
+        templateName: 'forgot-password',
+        subject: 'Forgot something.'
     }
 };

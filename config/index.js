@@ -6,5 +6,6 @@ module.exports = {
     userRolesEnumConfig: require('./user-roles-enum'),
     variablesConfig: require('./variables'),
     tokenTypeEnum: require('./token-type.enum'),
-    emailActionEnum: require('./email-action.enum')
+    emailActionEnum: require('./email-action.enum'),
+    configUrl: require('./config-url')
 };

@@ -3,5 +3,6 @@ module.exports = {
     USER_BLOCKED: 'userBlocked',
     ORDER_CONFIRMED: 'orderConfirmed',
     DELETE: 'delate',
-    UPDATE: 'update'
+    UPDATE: 'update',
+    FORGOT_PASSWORD: 'forgotPassword'
 };

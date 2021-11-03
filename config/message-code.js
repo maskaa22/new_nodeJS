@@ -6,5 +6,7 @@ module.exports = {
     RUNNING: 'App listen',
     NOT_TOKEN: 'Invalid token',
     DELETED: 'Is deleted',
-    WRONG_TEMPLATE: 'Wrong template name'
+    WRONG_TEMPLATE: 'Wrong template name',
+    NOT_ACTIVE: 'User is not active',
+    WRONG_TOKEN: 'Wrong token type'
 };

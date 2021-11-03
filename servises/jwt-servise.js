@@ -4,9 +4,12 @@ const { ErrorHandler } = require('../errors');
 const {
     variablesConfig: {
         JWT_ACCESS_SECRET,
-        JWT_REFRESH_SECRET
+        JWT_REFRESH_SECRET,
+        JWT_ACTION_SECRET,
+        JWT_ACTION_FORGOT_PASSWORD_SECRET,
+        JWT_ACTION_TOKEN_SECRET
     },
-    tokenTypeEnum: { ACCESS }
+    tokenTypeEnum: { ACCESS }, tokenTypeEnum
 } = require('../config');
 const { statusCode, messageCode } = require('../config');
 
@@ -22,11 +25,32 @@ module.exports = {
     },
     verifyToken: async (token, tokenType = ACCESS) => {
         try {
-            const secret = tokenType === ACCESS ? JWT_ACCESS_SECRET : JWT_REFRESH_SECRET;
+            let secret = '';
+            switch (tokenType) {
+                case tokenTypeEnum.ACCESS:
+                    secret = JWT_ACCESS_SECRET;
+                    break;
+                case tokenTypeEnum.REFRESH:
+                    secret = JWT_REFRESH_SECRET;
+                    break;
+                case tokenTypeEnum.ACTION:
+                    secret = JWT_ACTION_SECRET;
+                    break;
+                case tokenTypeEnum.FORGOT_PASSWORD:
+                    secret = JWT_ACTION_FORGOT_PASSWORD_SECRET;
+                    break;
+                case tokenTypeEnum.ACTION_TOKEN:
+                    secret = JWT_ACTION_TOKEN_SECRET;
+                    break;
+                default:
+                    throw new ErrorHandler(statusCode.SERVER_ERROR, messageCode.WRONG_TOKEN);
+            }
 
             await jwt.verify(token, secret);
         } catch (e) {
             throw new ErrorHandler(statusCode.UNAUTHORIZED, messageCode.NOT_TOKEN);
         }
-    }
+    },
+    createActionToken: () => jwt.sign({}, JWT_ACTION_SECRET, { expiresIn: '1d' }),
+    generateActionTokenForPassword: () => jwt.sign({}, JWT_ACTION_FORGOT_PASSWORD_SECRET, { expiresIn: '24h' })
 };

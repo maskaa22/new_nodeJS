@@ -1,3 +1,4 @@
 module.exports = {
-    AUTHORIZATION: 'Authorization'
+    AUTHORIZATION: 'Authorization',
+    FROM: 'From'
 };
