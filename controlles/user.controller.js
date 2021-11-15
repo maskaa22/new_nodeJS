@@ -38,7 +38,8 @@ module.exports = {
     },
     getAllUsers: async (req, res, next) => {
         try {
-            const users = await userServise.findAllUser(UserDB);
+            const users = await userServise.findAllUser(UserDB, req.query);
+            // const users = await userServise.findAllUser(req.query);
 
             res.json(users);
         } catch (e) {

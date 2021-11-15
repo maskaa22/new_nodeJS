@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose');
 
 const { userRolesEnumConfig } = require('../config');
-const { passwordServise } = require('../servises');
+const passwordServise = require('../servises/password-servise');
 
 const userSchema = new Schema({
     name: {
@@ -20,6 +20,9 @@ const userSchema = new Schema({
         required: true,
         trim: true,
         // select: false
+    },
+    age: {
+        type: Number
     },
     role: {
         type: String,
